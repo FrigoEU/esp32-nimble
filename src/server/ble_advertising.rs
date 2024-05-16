@@ -12,7 +12,7 @@ const BLE_HS_FOREVER: i32 = i32::MAX;
 pub struct BLEAdvertising {
   adv_data: esp_idf_sys::ble_hs_adv_fields,
   scan_data: esp_idf_sys::ble_hs_adv_fields,
-  pub adv_params: esp_idf_sys::ble_gap_adv_params,
+  adv_params: esp_idf_sys::ble_gap_adv_params,
   service_uuids_16: Vec<esp_idf_sys::ble_uuid16_t>,
   service_uuids_32: Vec<esp_idf_sys::ble_uuid32_t>,
   service_uuids_128: Vec<esp_idf_sys::ble_uuid128_t>,
@@ -50,6 +50,22 @@ impl BLEAdvertising {
 
     ret.reset().unwrap();
     ret
+  }
+
+  /// Set the minimum advertising interval.
+  ///
+  /// * `interval`: advertising interval in 0.625ms units, 0 = use default.
+  pub fn min_interval(&mut self, interval: u16) -> &mut Self {
+    self.adv_params.itvl_min = interval;
+    self
+  }
+
+  /// Set the maximum advertising interval.
+  ///
+  /// * `interval`: advertising interval in 0.625ms units, 0 = use default.
+  pub fn max_interval(&mut self, interval: u16) -> &mut Self {
+    self.adv_params.itvl_max = interval;
+    self
   }
 
   pub fn reset(&mut self) -> Result<(), BLEReturnCode> {
