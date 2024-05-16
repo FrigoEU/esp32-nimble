@@ -12,7 +12,7 @@ const BLE_HS_FOREVER: i32 = i32::MAX;
 pub struct BLEAdvertising {
   adv_data: esp_idf_sys::ble_hs_adv_fields,
   scan_data: esp_idf_sys::ble_hs_adv_fields,
-  adv_params: esp_idf_sys::ble_gap_adv_params,
+  pub adv_params: esp_idf_sys::ble_gap_adv_params,
   service_uuids_16: Vec<esp_idf_sys::ble_uuid16_t>,
   service_uuids_32: Vec<esp_idf_sys::ble_uuid32_t>,
   service_uuids_128: Vec<esp_idf_sys::ble_uuid128_t>,
